@@ -194,17 +194,31 @@
   .project-arrow{font-family:var(--mono);font-size:20px;color:var(--silver);}
 
   /* ---------- CONTACT ---------- */
-  .contact{border-top:1px solid var(--steel);text-align:center;}
-  .contact .section-title{font-size:clamp(36px,5.4vw,64px);max-width:760px;margin:0 auto 30px;}
-  .contact-desc{color:var(--silver);max-width:480px;margin:0 auto 46px;font-size:16px;}
-  .contact-links{display:flex;justify-content:center;gap:0;flex-wrap:wrap;border:1px solid var(--hair);max-width:640px;margin:0 auto;}
-  .contact-link{
-    flex:1;min-width:150px;padding:26px 16px;font-family:var(--mono);font-size:12px;letter-spacing:1px;
-    border-right:1px solid var(--hair);text-transform:uppercase;color:var(--silver);transition:all .3s ease;
-  }
-  .contact-link:last-child{border-right:none;}
-  .contact-link:hover{background:var(--charcoal);color:var(--white);}
-  .contact-link .clabel{display:block;font-size:9px;color:#5a5a5f;margin-bottom:8px;letter-spacing:1.5px;}
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+    border: 1px solid var(--hair);
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.contact-link {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 26px 16px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+    border-right: 1px solid var(--hair);
+    text-transform: uppercase;
+    color: var(--silver);
+    transition: all .3s ease;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    box-sizing: border-box;
+}
 
   footer{
     padding:36px 0;border-top:1px solid var(--steel);
@@ -385,15 +399,15 @@
         <h2 class="section-title">Karya Terpilih</h2>
       </div>
       <div class="project-list reveal">
-        <a class="project-row" href="#">
+        <a class="project-row" href="http://localhost/ProjectResto/restoran/menu/index.php">
           <div class="project-idx">01</div>
           <div>
-            <div class="project-title">Nama Proyek Pertama</div>
+            <div class="project-title">Website Restoran</div>
             <div class="project-tags">HTML / PHP Native / MySQL</div>
           </div>
           <div class="project-arrow">↗</div>
         </a>
-        <a class="project-row" href="#">
+        <a class="project-row" href="http://localhost/TaskManager/task_manager/">
           <div class="project-idx">02</div>
           <div>
             <div class="project-title">Nama Proyek Kedua</div>
@@ -401,7 +415,7 @@
           </div>
           <div class="project-arrow">↗</div>
         </a>
-        <a class="project-row" href="#">
+        <a class="project-row" href="http://localhost/BUCIN/">
           <div class="project-idx">03</div>
           <div>
             <div class="project-title">Nama Proyek Ketiga</div>
@@ -423,9 +437,9 @@
           Terbuka untuk kolaborasi, belajar bersama, atau sekadar berdiskusi soal backend development.
         </p>
         <div class="contact-links">
-          <a href="mailto:email-kamu@gmail.com" class="contact-link"><span class="clabel">Email</span>email-kamu@gmail.com</a>
-          <a href="#" class="contact-link"><span class="clabel">GitHub</span>github.com/username</a>
-          <a href="#" class="contact-link"><span class="clabel">Instagram</span>@username</a>
+          <a href="mailto:starlakreji@gmail.com" class="contact-link"><span class="clabel">Email</span>starlakreji@gmail.com</a>
+          <a href="https://github.com/DerilAryaDwiOktavian" class="contact-link"><span class="clabel">GitHub</span>github.com/DerilAryaDwiOktavian</a>
+          <a href="https://instagram.com/dyrenn24_" class="contact-link"><span class="clabel">Instagram</span>@dyrenn24_</a>
         </div>
       </div>
     </div>
