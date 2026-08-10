@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deril Arya Dwi Oktavian — Backend Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0a0a0b;
+    --charcoal:#151517;
+    --panel:#1b1b1e;
+    --steel:#2e2e32;
+    --hair:#3a3a3e;
+    --silver:#9a9a9f;
+    --pearl:#e9e9e6;
+    --white:#faf9f7;
+    --serif:'Cormorant Garamond', serif;
+    --sans:'Inter', sans-serif;
+    --mono:'JetBrains Mono', monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--pearl);
+    font-family:var(--sans);
+    font-weight:300;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--pearl);color:var(--ink);}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
+
+  /* subtle grain / noise overlay */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    pointer-events:none;
+    background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,0.035) 1px, transparent 0);
+    background-size:26px 26px;
+    z-index:1;
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,10,11,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--steel);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 32px;max-width:1120px;margin:0 auto;
+  }
+  .logo{
+    font-family:var(--serif);font-size:24px;font-weight:600;letter-spacing:0.5px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .logo .dot{width:6px;height:6px;background:var(--pearl);border-radius:50%;display:inline-block;}
+  .nav-links{display:flex;gap:40px;font-family:var(--mono);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--silver);}
+  .nav-links a{transition:color .25s ease;position:relative;}
+  .nav-links a:hover{color:var(--white);}
+  .nav-links a::after{
+    content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--pearl);
+    transition:width .3s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-toggle{display:none;background:none;border:1px solid var(--hair);color:var(--pearl);padding:8px 12px;font-family:var(--mono);font-size:11px;cursor:pointer;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:120px 0 100px;
+    position:relative;z-index:2;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.15fr 0.85fr;gap:64px;align-items:center;
+  }
+  .eyebrow{
+    font-family:var(--mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--silver);
+    display:flex;align-items:center;gap:12px;margin-bottom:28px;
+  }
+  .eyebrow .line{width:36px;height:1px;background:var(--hair);}
+  .hero h1{
+    font-family:var(--serif);font-weight:600;font-size:clamp(48px,6.4vw,84px);
+    line-height:1.02;letter-spacing:-0.5px;color:var(--white);
+  }
+  .hero h1 em{font-style:italic;font-weight:400;color:var(--silver);}
+  .hero-role{
+    font-family:var(--mono);font-size:14px;letter-spacing:1px;color:var(--silver);
+    margin-top:22px;
+  }
+  .hero-desc{
+    max-width:460px;margin-top:26px;font-size:16px;color:var(--silver);font-weight:300;
+  }
+  .hero-actions{display:flex;gap:16px;margin-top:44px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);font-size:12px;letter-spacing:1px;text-transform:uppercase;
+    padding:14px 28px;border:1px solid var(--hair);transition:all .3s ease;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-solid{background:var(--pearl);color:var(--ink);border-color:var(--pearl);}
+  .btn-solid:hover{background:transparent;color:var(--pearl);}
+  .btn-ghost:hover{border-color:var(--pearl);color:var(--white);}
+
+  /* photo frame */
+  .portrait-wrap{position:relative;display:flex;justify-content:center;}
+  .portrait-frame{
+    width:100%;max-width:320px;aspect-ratio:4/5;
+    border:1px solid var(--hair);
+    position:relative;padding:14px;
+  }
+  .portrait-frame::before{
+    content:"";position:absolute;top:-10px;left:-10px;right:10px;bottom:10px;
+    border:1px solid var(--steel);z-index:-1;
+  }
+  .portrait-inner{
+    width:100%;height:100%;background:linear-gradient(180deg,#1e1e21,#0e0e10);
+    display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+  }
+  .portrait-inner img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);}
+  .portrait-monogram{
+    font-family:var(--serif);font-size:96px;color:var(--hair);font-weight:500;letter-spacing:2px;
+  }
+  .portrait-caption{
+    position:absolute;bottom:-34px;left:14px;font-family:var(--mono);font-size:10px;letter-spacing:1.5px;
+    text-transform:uppercase;color:var(--silver);
+  }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{padding:110px 0;position:relative;z-index:2;}
+  .section-head{margin-bottom:56px;}
+  .section-num{font-family:var(--mono);font-size:12px;color:var(--silver);letter-spacing:2px;margin-bottom:14px;display:block;}
+  .section-title{
+    font-family:var(--serif);font-size:clamp(32px,4vw,48px);font-weight:600;color:var(--white);
+  }
+  .divider{height:1px;background:var(--steel);border:none;margin:0;}
+
+  /* ---------- ABOUT ---------- */
+  .about{border-top:1px solid var(--steel);}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start;}
+  .about-text p{color:var(--silver);font-size:16px;margin-bottom:20px;font-weight:300;}
+  .about-text strong{color:var(--pearl);font-weight:500;}
+  .facts{margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .fact-label{font-family:var(--mono);font-size:11px;color:var(--silver);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
+  .fact-value{font-family:var(--serif);font-size:20px;color:var(--white);}
+
+  /* terminal card */
+  .terminal{
+    background:var(--charcoal);border:1px solid var(--hair);
+    font-family:var(--mono);font-size:13px;
+  }
+  .terminal-bar{
+    display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--hair);
+  }
+  .terminal-bar span{width:9px;height:9px;border-radius:50%;background:var(--steel);}
+  .terminal-bar .tlabel{margin-left:8px;color:var(--silver);font-size:11px;letter-spacing:1px;}
+  .terminal-body{padding:26px 22px;color:var(--silver);}
+  .terminal-body .prompt{color:var(--pearl);}
+  .terminal-body .key{color:var(--silver);}
+  .terminal-body .val{color:var(--white);}
+  .terminal-body .comment{color:#5a5a5f;}
+  .terminal-line{margin-bottom:10px;white-space:pre-wrap;}
+  .cursor{display:inline-block;width:7px;height:14px;background:var(--pearl);vertical-align:middle;animation:blink 1.1s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+
+  /* ---------- SKILLS ---------- */
+  .skills{border-top:1px solid var(--steel);}
+  .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--steel);border:1px solid var(--steel);}
+  .skill-card{background:var(--ink);padding:44px 32px;transition:background .3s ease;}
+  .skill-card:hover{background:var(--charcoal);}
+  .skill-index{font-family:var(--mono);font-size:11px;color:var(--silver);letter-spacing:1px;}
+  .skill-name{font-family:var(--serif);font-size:28px;color:var(--white);margin:18px 0 12px;}
+  .skill-desc{color:var(--silver);font-size:14px;font-weight:300;margin-bottom:22px;}
+  .skill-bar-track{height:2px;background:var(--hair);width:100%;}
+  .skill-bar-fill{height:2px;background:var(--pearl);}
+  .skill-level{font-family:var(--mono);font-size:10px;color:var(--silver);letter-spacing:1px;margin-top:10px;text-transform:uppercase;}
+
+  /* ---------- PROJECTS ---------- */
+  .projects{border-top:1px solid var(--steel);}
+  .project-list{display:flex;flex-direction:column;}
+  .project-row{
+    display:grid;grid-template-columns:80px 1fr auto;gap:24px;align-items:center;
+    padding:34px 0;border-bottom:1px solid var(--steel);transition:opacity .3s ease;
+  }
+  .project-row:hover{opacity:0.75;}
+  .project-row:first-child{border-top:1px solid var(--steel);}
+  .project-idx{font-family:var(--mono);color:var(--silver);font-size:13px;}
+  .project-title{font-family:var(--serif);font-size:26px;color:var(--white);}
+  .project-tags{font-family:var(--mono);font-size:11px;color:var(--silver);margin-top:8px;letter-spacing:0.5px;}
+  .project-arrow{font-family:var(--mono);font-size:20px;color:var(--silver);}
+
+  /* ---------- CONTACT ---------- */
+  .contact{border-top:1px solid var(--steel);text-align:center;}
+  .contact .section-title{font-size:clamp(36px,5.4vw,64px);max-width:760px;margin:0 auto 30px;}
+  .contact-desc{color:var(--silver);max-width:480px;margin:0 auto 46px;font-size:16px;}
+  .contact-links{display:flex;justify-content:center;gap:0;flex-wrap:wrap;border:1px solid var(--hair);max-width:640px;margin:0 auto;}
+  .contact-link{
+    flex:1;min-width:150px;padding:26px 16px;font-family:var(--mono);font-size:12px;letter-spacing:1px;
+    border-right:1px solid var(--hair);text-transform:uppercase;color:var(--silver);transition:all .3s ease;
+  }
+  .contact-link:last-child{border-right:none;}
+  .contact-link:hover{background:var(--charcoal);color:var(--white);}
+  .contact-link .clabel{display:block;font-size:9px;color:#5a5a5f;margin-bottom:8px;letter-spacing:1.5px;}
+
+  footer{
+    padding:36px 0;border-top:1px solid var(--steel);
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--mono);font-size:11px;color:var(--silver);letter-spacing:0.5px;
+  }
+
+  /* ---------- REVEAL ANIM ---------- */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    .cursor{animation:none;}
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;gap:56px;}
+    .portrait-wrap{order:-1;}
+    .about-grid{grid-template-columns:1fr;gap:44px;}
+    .skills-grid{grid-template-columns:1fr;}
+    .project-row{grid-template-columns:44px 1fr;}
+    .project-arrow{display:none;}
+    footer{flex-direction:column;gap:10px;text-align:center;}
+  }
+  @media (max-width:640px){
+    .nav-links{display:none;}
+    .nav-toggle{display:block;}
+    .nav-links.open{
+      display:flex;flex-direction:column;position:absolute;top:64px;left:0;right:0;
+      background:var(--ink);border-bottom:1px solid var(--steel);padding:24px 32px;gap:20px;
+    }
+    .contact-links{flex-direction:column;}
+    .contact-link{border-right:none;border-bottom:1px solid var(--hair);}
+    .contact-link:last-child{border-bottom:none;}
+    .facts{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="#top" class="logo"><span class="dot"></span>Deril Arya Dwi Oktavian</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">Tentang</a>
+      <a href="#skills">Keahlian</a>
+      <a href="#projects">Proyek</a>
+      <a href="#contact">Kontak</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle">MENU</button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="reveal in">
+        <div class="eyebrow"><span class="line"></span>Backend Developer — Malang, Jawa Timur</div>
+        <h1>Deril Arya<br>Dwi <em>Oktavian</em></h1>
+        <div class="hero-role">// building server-side logic with html &amp; native php</div>
+        <p class="hero-desc">
+          Saya menyusun fondasi di balik layar sebuah website — dari struktur halaman dengan HTML
+          hingga logika server menggunakan PHP native. Fokus pada kode yang rapi, sederhana, dan bisa diandalkan.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-solid">Lihat Proyek</a>
+          <a href="#contact" class="btn btn-ghost">Hubungi Saya</a>
+        </div>
+      </div>
+      <div class="portrait-wrap reveal in">
+        <div class="portrait-frame">
+          <div class="portrait-inner">
+            <img src="WhatsApp Image 2026-08-10 at 08.46.09.jpeg" alt="Deril Arya Dwi Oktavian" />
+          </div>
+          <div class="portrait-caption">Deril A. D. Oktavian — 2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-num">01 — Tentang</span>
+        <h2 class="section-title">Profil Singkat</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>
+            Saya <strong>Deril Arya Dwi Oktavian</strong>, seorang pelajar sekaligus developer pemula
+            yang berbasis di <strong>Malang, Jawa Timur</strong>. Ketertarikan saya berada di sisi
+            <strong>backend</strong> — bagian yang tidak selalu terlihat oleh pengguna, tapi menjadi
+            tulang punggung dari sebuah website.
+          </p>
+          <p>
+            Saat ini saya fokus memperdalam <strong>HTML</strong> untuk struktur halaman dan
+            <strong>PHP native</strong> untuk logika server, tanpa bergantung pada framework —
+            agar benar-benar memahami cara kerja sistem dari dasarnya.
+          </p>
+          <div class="facts">
+            <div>
+              <div class="fact-label">Lokasi</div>
+              <div class="fact-value">Malang, Jawa Timur</div>
+            </div>
+            <div>
+              <div class="fact-label">Fokus</div>
+              <div class="fact-value">Backend Development</div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="terminal">
+            <div class="terminal-bar">
+              <span></span><span></span><span></span>
+              <span class="tlabel">profile.php</span>
+            </div>
+            <div class="terminal-body">
+              <div class="terminal-line"><span class="prompt">$</span> php whoami.php</div>
+              <div class="terminal-line comment">// mengembalikan data profil developer</div>
+              <div class="terminal-line">{</div>
+              <div class="terminal-line">&nbsp;&nbsp;"<span class="key">nama</span>": "<span class="val">Deril Arya Dwi Oktavian</span>",</div>
+              <div class="terminal-line">&nbsp;&nbsp;"<span class="key">peran</span>": "<span class="val">Backend Developer</span>",</div>
+              <div class="terminal-line">&nbsp;&nbsp;"<span class="key">domisili</span>": "<span class="val">Malang, Jawa Timur</span>",</div>
+              <div class="terminal-line">&nbsp;&nbsp;"<span class="key">stack</span>": ["<span class="val">HTML</span>", "<span class="val">PHP Native</span>"]</div>
+              <div class="terminal-line">}<span class="cursor"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="skills">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-num">02 — Keahlian</span>
+        <h2 class="section-title">Yang Saya Kuasai</h2>
+      </div>
+    </div>
+    <div class="wrap" style="padding:0;">
+      <div class="skills-grid reveal">
+        <div class="skill-card">
+          <div class="skill-index">01</div>
+          <div class="skill-name">HTML</div>
+          <p class="skill-desc">Menyusun struktur halaman web yang bersih, semantik, dan siap dikembangkan lebih lanjut.</p>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%;"></div></div>
+          <div class="skill-level">Cukup Mahir</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-index">02</div>
+          <div class="skill-name">PHP Native</div>
+          <p class="skill-desc">Menulis logika server dari nol tanpa framework, memahami alur request hingga respons.</p>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%;"></div></div>
+          <div class="skill-level">Cukup Mahir</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-index">03</div>
+          <div class="skill-name">Backend</div>
+          <p class="skill-desc">Merancang alur data antara halaman dan server agar sebuah website berjalan sebagaimana mestinya.</p>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:78%;"></div></div>
+          <div class="skill-level">Sedang Berkembang</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="projects">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-num">03 — Proyek</span>
+        <h2 class="section-title">Karya Terpilih</h2>
+      </div>
+      <div class="project-list reveal">
+        <a class="project-row" href="#">
+          <div class="project-idx">01</div>
+          <div>
+            <div class="project-title">Nama Proyek Pertama</div>
+            <div class="project-tags">HTML / PHP Native / MySQL</div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </a>
+        <a class="project-row" href="#">
+          <div class="project-idx">02</div>
+          <div>
+            <div class="project-title">Nama Proyek Kedua</div>
+            <div class="project-tags">HTML / PHP Native / Backend</div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </a>
+        <a class="project-row" href="#">
+          <div class="project-idx">03</div>
+          <div>
+            <div class="project-title">Nama Proyek Ketiga</div>
+            <div class="project-tags">HTML / PHP Native</div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="section-num">04 — Kontak</span>
+        <h2 class="section-title">Mari Terhubung</h2>
+        <p class="contact-desc">
+          Terbuka untuk kolaborasi, belajar bersama, atau sekadar berdiskusi soal backend development.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:email-kamu@gmail.com" class="contact-link"><span class="clabel">Email</span>email-kamu@gmail.com</a>
+          <a href="#" class="contact-link"><span class="clabel">GitHub</span>github.com/username</a>
+          <a href="#" class="contact-link"><span class="clabel">Instagram</span>@username</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <span>© 2026 Deril Arya Dwi Oktavian</span>
+  <span>Malang, Jawa Timur, Indonesia</span>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
